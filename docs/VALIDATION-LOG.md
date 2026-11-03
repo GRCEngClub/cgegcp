@@ -56,3 +56,20 @@ One transient `Post https://cloudresourcemanager...` network error on a run; a c
 
 ### F7: No `terraform import` step exists for Lab 2's manual setting
 `google_project_iam_audit_config` merges into an existing audit config without import. The 03_03 import beat was removed from the storyboard.
+
+### F8 (teaching gift): new no-Organization projects grant `roles/editor` to default service accounts
+The first collector run on a fresh project failed `CHK-IAM-01` with evidence:
+`roles/editor` → `serviceAccount:<PROJECT_NUMBER>-compute@developer.gserviceaccount.com` and `serviceAccount:<PROJECT_ID>@appspot.gserviceaccount.com`.
+Inside an Organization, Org Policy `iam.automaticIamGrantsForDefaultServiceAccounts` normally prevents this; without one, nothing does.
+**Course use:** Lab 4's first real finding is one nobody created on purpose. Removing it is safe because the pipeline builds as `grc-builder`, not the compute default account.
+
+### F9: Stage 3 deploys first try with a dedicated build identity
+`google_cloudfunctions2_function` with `build_config.service_account = grc-builder` (only `roles/cloudbuild.builds.builder` + objectViewer on the source bucket) built in 1m16s. This sidesteps the April POC's build-permission error on the compute default account. Scheduler → function with an OIDC token from `grc-scheduler` holding `run.invoker` on that one service: `AttemptFinished ... Original HTTP response code number = 200`.
+Note: `gcloud scheduler jobs describe` showed `status.code=-1` with no lastAttemptTime for ~2 minutes after a forced run; the scheduler logs are the truth.
+
+### F10: Collector results
+11 results per run on the validation project (4 buckets × 2 bucket checks, 3 project-level checks). Second run: still 11 documents, every one carrying the latest `run_id` (upsert proven).
+Lab note: Cloud Functions creates `gcf-v2-sources-<PROJECT_NUMBER>-<REGION>` itself; it passes both bucket checks.
+
+### F11: WORM proof on the real reports bucket
+`retention_policy`: `isLocked=True; retentionPeriod=86400`. Delete attempt → `HTTPError 403: Object 'cgegcp-val-1103-reports/worm-proof.txt' is subject to bucket's retention policy or object retention and cannot be deleted or overwritten until ...`

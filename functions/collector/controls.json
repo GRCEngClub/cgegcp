@@ -1,0 +1,36 @@
+{
+  "framework": "NIST CSF 2.0",
+  "crosswalk": "NIST SP 800-53 Rev. 5",
+  "checks": {
+    "CHK-STG-01": {
+      "title": "No Cloud Storage bucket is publicly accessible",
+      "csf": ["PR.AA-05", "PR.DS-01"],
+      "sp800_53": ["AC-3", "AC-6", "SC-7"],
+      "severity": "high"
+    },
+    "CHK-STG-02": {
+      "title": "Uniform bucket-level access is on for every bucket",
+      "csf": ["PR.AA-05"],
+      "sp800_53": ["AC-3", "AC-6"],
+      "severity": "medium"
+    },
+    "CHK-IAM-01": {
+      "title": "No service account holds a basic role (Owner, Editor, Viewer)",
+      "csf": ["PR.AA-05"],
+      "sp800_53": ["AC-6"],
+      "severity": "high"
+    },
+    "CHK-IAM-02": {
+      "title": "No service account has a user-managed key",
+      "csf": ["PR.AA-01"],
+      "sp800_53": ["IA-5"],
+      "severity": "high"
+    },
+    "CHK-LOG-01": {
+      "title": "Data Access logs (read and write) are on for Cloud Storage",
+      "csf": ["PR.PS-04"],
+      "sp800_53": ["AU-2", "AU-12"],
+      "severity": "medium"
+    }
+  }
+}
