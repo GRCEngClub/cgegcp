@@ -1,0 +1,9 @@
+.terraform/
+*.tfstate*
+tfplan
+*.tfplan
+*.auto.tfvars
+labs/03-foundation/backend.hcl
+build/
+__pycache__/
+validation/raw/*-tmp*

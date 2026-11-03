@@ -47,3 +47,12 @@ Linking failed with `Cloud billing quota exceeded` on an account with 3 projects
 
 ### F5 (design-deciding): no Org Policy without an Organization
 See V2. Every Org Policy step in the storyboard (02_03, 03_02, Lab 3 baseline, 06_01, Lab 6 enforce) is impossible on the course's stated tenancy. Decision needed from AJ before stages 00 and 06 are written.
+
+### F6: Stages 00-02 converge (2026-11-03)
+Run 1: discovery gap map `audit_sink=absent`, `data_access_storage=absent`, `buckets_missing_guardrails=present`, `user_managed_sa_keys=present`; activation created the audit config, `grc-audit-logs` (365 days) and `grc-audit-sink`.
+Run 2: discovery reports `audit_sink=pipeline`, `data_access_storage=present`. Activation keeps managing both: **No changes**.
+Design note: activation must keep managing what it created, or run 2 destroys it. The sink and log bucket carry `managed-by: cgegcp`; audit configs have no description field, so `present` is managed too (Terraform merges, changes nothing).
+One transient `Post https://cloudresourcemanager...` network error on a run; a clean rerun passed.
+
+### F7: No `terraform import` step exists for Lab 2's manual setting
+`google_project_iam_audit_config` merges into an existing audit config without import. The 03_03 import beat was removed from the storyboard.
