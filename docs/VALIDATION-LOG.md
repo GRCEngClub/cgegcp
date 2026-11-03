@@ -94,3 +94,21 @@ Lab 5 grants `roles/iam.serviceAccountTokenCreator` on `grc-reporter` only, runs
 Current models (`gemini-3.1-flash-lite`, `gemini-3.5-flash-lite`, `gemini-3.5-flash`, `gemini-3.8-flash`) answer **only at location `global`**; `us-central1` returns 404.
 Course default: `gemini-3.5-flash-lite` at `global`, as the `gemini_model` variable. Lab tip: list models with `GET https://us-central1-aiplatform.googleapis.com/v1beta1/publishers/google/models`.
 Digest sample in `docs/sample-reports/digest.md`; every `[file:line]` citation checked against the SAR and correct. `temperature: 0`.
+
+### F16: `list_assets` lags far behind `search_all_iam_policies` for bucket IAM
+After `allUsers` was granted on a bucket, `search-all-iam-policies` showed it within ~60s, but `list_assets --content-type=iam-policy` still showed **no** public binding 4+ minutes later. CHK-STG-01 passed falsely (a silent pass).
+**Fix:** the collector reads bucket IAM from `search_all_iam_policies`. Resource config and project IAM/audit config still come from `list_assets`.
+
+### F17: Stage 6 ladder validated end to end (2026-11-03)
+- report_only: `{"bucket":"<b>","status":"would_fix"}`; bucket untouched (still public).
+- approve (mode raised in Terraform): `pending_approval` → `approve.py <PROJECT> <BUCKET>` → `Approved <b> as <account>` → next run `fixed`.
+- Result: `allUsers=0`, `uniform_bucket_level_access=True`, `public_access_prevention=enforced`; the next collection shows CHK-STG-01 passing.
+Approval is by bucket name (`approve.py <PROJECT>` lists pending ones); copying IDs out of logs failed in testing.
+
+### F18 (teaching gift): the fix broke another control, and the pipeline caught it
+The first remediator patched an *unloaded* bucket object (`client.bucket(name)`), so the PATCH carried default settings and switched **uniform bucket-level access OFF**. The very next collection failed **CHK-STG-02** on that bucket.
+**Fix:** `client.get_bucket(name)` before patching, and set `uniform_bucket_level_access_enabled = True` explicitly.
+
+### F19: a recurrence was silently ignored
+After a bucket was fixed and then made public again, the remediator skipped it because its record still said `fixed`.
+**Fix:** a `fixed` record only counts if `fixed_at >= first_failed_at` of the current failure; otherwise the ladder restarts for that bucket. Re-validated: recurrence → `pending_approval` → approved → `fixed`.

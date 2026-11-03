@@ -37,8 +37,13 @@ def gather():
     R, P = asset_v1.ContentType.RESOURCE, asset_v1.ContentType.IAM_POLICY
     buckets = {a.name.split("/")[-1]: _d(a.resource).get("data", {})
                for a in _assets(c, ["storage.googleapis.com/Bucket"], R)}
-    bucket_policies = {a.name.split("/")[-1]: _d(a.iam_policy).get("bindings", [])
-                       for a in _assets(c, ["storage.googleapis.com/Bucket"], P)}
+    # Bucket IAM comes from the search API, not list_assets: on validation, list_assets
+    # still showed no public binding 4+ minutes after a grant that search showed in ~60s.
+    bucket_policies = {}
+    for r in c.search_all_iam_policies(request={"scope": f"projects/{PROJECT}",
+                                                "asset_types": ["storage.googleapis.com/Bucket"]}):
+        name = r.resource.split("/")[-1]
+        bucket_policies.setdefault(name, []).extend(_d(r.policy).get("bindings", []))
     proj = _assets(c, ["cloudresourcemanager.googleapis.com/Project"], P)
     proj_policy = _d(proj[0].iam_policy) if proj else {}
     keys = {a.name: _d(a.resource).get("data", {})
