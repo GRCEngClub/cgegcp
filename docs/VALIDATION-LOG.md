@@ -20,14 +20,14 @@ surprises you, check here first.
 
 | ID | Question | Result | Course impact |
 |---|---|---|---|
-| V1 | SCC Standard activation + findings read at project scope, no Organization | **Not active by default, and no CLI path found to activate it.** `scc manage services describe` → `INVALID_ARGUMENT`; `scc findings list` → `NOT_FOUND`. Console activation still to try | Labs 2, 4, 6 evidence source |
+| V1 | SCC Standard activation + findings read at project scope, no Organization | **Not active by default, and no CLI path found to activate it.** `scc manage services describe` → `INVALID_ARGUMENT`; `scc findings list` → `NOT_FOUND`. Course redesigned to not depend on SCC (checks as code over Asset Inventory). Inventory delay for a new public grant: **57s** (`validation/raw/2026-11-03-asset-delay.log`) | Labs 2, 4, 6 evidence source |
 | V2 | Org Policy constraints + dryRunSpec at project scope; public-bucket default on new projects | **Org Policy can't be set on a no-Organization project.** Owner gets `Permission 'orgpolicy.policies.create' denied`; granting `roles/orgpolicy.policyAdmin` at project scope → `Role ... is not supported for this resource`. Effective policies read fine (all `enforce: false`). New projects do NOT block public buckets (`public_access_prevention: inherited`, `allUsers` grant succeeds) | Labs 3, 6; 02_03, 03_02, 06_01 scripts |
 | V3 | Bucket Lock blocked-delete error string; teardown after retention | **Answered.** Lock works (`isLocked=True`); delete inside retention → `HTTPError 403: Object '<b>/<o>' is subject to bucket's retention policy or object retention and cannot be deleted or overwritten until <ts>`; bucket delete with object → `Bucket is not empty`; after expiry, object + bucket delete succeed (bucket delete took 269s) | Lab 4 WORM proof, Lab 6 teardown |
 | V4 | Cloud Run functions build SA + scheduler invoker on a fresh project | pending | Lab 4 |
 | V5 | Workload Identity Federation per fork | pending | Lab 3 |
 | V6 | Vertex AI Gemini on a free-trial project | pending | 05_03 |
 | V7 | Free-trial terms at signup ($300 / 90 days, card wording) | pending | 00_02, Lab 1 |
-| V8 | `compliances` field contents on Standard-tier SHA findings | pending | 02_02, mappings seed |
+| V8 | `compliances` field contents on Standard-tier SHA findings | retired: no SCC dependency | n/a |
 
 ## Findings and fixes
 
