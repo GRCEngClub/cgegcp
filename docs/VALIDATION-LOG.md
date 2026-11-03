@@ -112,3 +112,15 @@ The first remediator patched an *unloaded* bucket object (`client.bucket(name)`)
 ### F19: a recurrence was silently ignored
 After a bucket was fixed and then made public again, the remediator skipped it because its record still said `fixed`.
 **Fix:** a `fixed` record only counts if `fixed_at >= first_failed_at` of the current failure; otherwise the ladder restarts for that bucket. Re-validated: recurrence → `pending_approval` → approved → `fixed`.
+
+### F20: Policy gate validated in both directions (conftest, real plans)
+Good plans (stages 03, 06): `6 tests, 6 passed`. Deliberately bad plan (`policy/tests/bad`): all five violations denied:
+```
+CHK-IAM-01: google_project_iam_member.editor grants basic role roles/editor. Use a predefined or custom role.
+CHK-IAM-02: google_service_account_key.key creates a service account key. Workloads use attached identities; CI uses Workload Identity Federation.
+CHK-STG-01: google_storage_bucket.open must set public_access_prevention = "enforced".
+CHK-STG-01: google_storage_bucket_iam_member.public grants allUsers on a bucket.
+CHK-STG-02: google_storage_bucket.open must set uniform_bucket_level_access = true.
+```
+Remediator fixture: `... must run as grc-remediator, not 123456789-compute@developer.gserviceaccount.com.`
+**Silent pass caught:** an unset `public_access_prevention` is absent from the plan JSON, so `after.public_access_prevention != "enforced"` was undefined and never denied. Rules now use `object.get(..., "unset")`.

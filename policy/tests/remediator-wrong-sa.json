@@ -1,0 +1,15 @@
+{
+  "resource_changes": [
+    {
+      "address": "google_cloudfunctions2_function.remediator",
+      "type": "google_cloudfunctions2_function",
+      "change": {
+        "actions": ["update"],
+        "after": {
+          "name": "grc-remediator",
+          "service_config": [{"service_account_email": "123456789-compute@developer.gserviceaccount.com"}]
+        }
+      }
+    }
+  ]
+}
