@@ -1,0 +1,162 @@
+{
+  "system-security-plan": {
+    "uuid": "83216c0c-0f08-5f31-8017-abb3e56560a5",
+    "metadata": {
+      "title": "System Security Plan: cgegcp-val-1103",
+      "last-modified": "2026-11-03T18:40:58.762302+00:00",
+      "version": "2026.11.03",
+      "oscal-version": "1.1.2"
+    },
+    "import-profile": {
+      "href": "https://raw.githubusercontent.com/usnistgov/oscal-content/main/nist.gov/SP800-53/rev5/json/NIST_SP-800-53_rev5_MODERATE-baseline_profile.json"
+    },
+    "system-characteristics": {
+      "system-ids": [
+        {
+          "identifier-type": "https://ietf.org/rfc/rfc4122",
+          "id": "20ce9b12-06c4-51a0-a137-7adacf4b2eb5"
+        }
+      ],
+      "system-name": "cgegcp-val-1103",
+      "description": "Google Cloud project assessed by the CGE-GCP evidence pipeline.",
+      "security-sensitivity-level": "fips-199-moderate",
+      "system-information": {
+        "information-types": [
+          {
+            "uuid": "d8caf35c-2717-5fc4-a0b1-6d4d7ca155e3",
+            "title": "Compliance evidence",
+            "description": "Check results and generated reports.",
+            "confidentiality-impact": {
+              "base": "fips-199-moderate"
+            },
+            "integrity-impact": {
+              "base": "fips-199-moderate"
+            },
+            "availability-impact": {
+              "base": "fips-199-moderate"
+            }
+          }
+        ]
+      },
+      "security-impact-level": {
+        "security-objective-confidentiality": "fips-199-moderate",
+        "security-objective-integrity": "fips-199-moderate",
+        "security-objective-availability": "fips-199-moderate"
+      },
+      "status": {
+        "state": "operational"
+      },
+      "authorization-boundary": {
+        "description": "The single Google Cloud project cgegcp-val-1103; no Organization."
+      }
+    },
+    "system-implementation": {
+      "users": [
+        {
+          "uuid": "3d837312-2bbb-5c70-9249-db70d8d17a8b",
+          "title": "Project owner"
+        }
+      ],
+      "components": [
+        {
+          "uuid": "20ce9b12-06c4-51a0-a137-7adacf4b2eb5",
+          "type": "this-system",
+          "title": "cgegcp-val-1103",
+          "description": "The assessed project.",
+          "status": {
+            "state": "operational"
+          }
+        }
+      ]
+    },
+    "control-implementation": {
+      "description": "Implementation status derived from the latest check results in the evidence store.",
+      "implemented-requirements": [
+        {
+          "uuid": "01ef327c-6165-518b-bf87-4102b8bab093",
+          "control-id": "ac-3",
+          "by-components": [
+            {
+              "component-uuid": "20ce9b12-06c4-51a0-a137-7adacf4b2eb5",
+              "uuid": "162651e0-31b8-5d5e-abed-f34c7b4fcf5a",
+              "description": "Tested daily by CHK-STG-01, CHK-STG-02 over Cloud Asset Inventory; results stored in Firestore and reported from there.",
+              "implementation-status": {
+                "state": "implemented"
+              }
+            }
+          ]
+        },
+        {
+          "uuid": "dd13b496-138c-5be8-8084-87a6a0efe3c0",
+          "control-id": "ac-6",
+          "by-components": [
+            {
+              "component-uuid": "20ce9b12-06c4-51a0-a137-7adacf4b2eb5",
+              "uuid": "a8fc2159-bf0a-5e1c-a52d-5bd5a3d3aaa3",
+              "description": "Tested daily by CHK-IAM-01, CHK-STG-01, CHK-STG-02 over Cloud Asset Inventory; results stored in Firestore and reported from there.",
+              "implementation-status": {
+                "state": "partial"
+              }
+            }
+          ]
+        },
+        {
+          "uuid": "d3e9c5aa-1bc4-5988-9fc6-ed45ddbda17c",
+          "control-id": "au-12",
+          "by-components": [
+            {
+              "component-uuid": "20ce9b12-06c4-51a0-a137-7adacf4b2eb5",
+              "uuid": "cef50ba0-70b9-5500-89d0-de3bcb1f6e57",
+              "description": "Tested daily by CHK-LOG-01 over Cloud Asset Inventory; results stored in Firestore and reported from there.",
+              "implementation-status": {
+                "state": "implemented"
+              }
+            }
+          ]
+        },
+        {
+          "uuid": "d0539c4d-889e-5108-92ee-7b40bb6f20b6",
+          "control-id": "au-2",
+          "by-components": [
+            {
+              "component-uuid": "20ce9b12-06c4-51a0-a137-7adacf4b2eb5",
+              "uuid": "8e787088-4fc4-53c6-b535-46a3d287080a",
+              "description": "Tested daily by CHK-LOG-01 over Cloud Asset Inventory; results stored in Firestore and reported from there.",
+              "implementation-status": {
+                "state": "implemented"
+              }
+            }
+          ]
+        },
+        {
+          "uuid": "8fca1a5a-adfb-5d0c-8c73-6d541740f3c6",
+          "control-id": "ia-5",
+          "by-components": [
+            {
+              "component-uuid": "20ce9b12-06c4-51a0-a137-7adacf4b2eb5",
+              "uuid": "deee6377-6723-5dce-ba7d-f3171ed42277",
+              "description": "Tested daily by CHK-IAM-02 over Cloud Asset Inventory; results stored in Firestore and reported from there.",
+              "implementation-status": {
+                "state": "implemented"
+              }
+            }
+          ]
+        },
+        {
+          "uuid": "cde25f62-51c0-527c-9421-5df13189165f",
+          "control-id": "sc-7",
+          "by-components": [
+            {
+              "component-uuid": "20ce9b12-06c4-51a0-a137-7adacf4b2eb5",
+              "uuid": "ad99a4a9-a282-539a-a553-695ff4353f3a",
+              "description": "Tested daily by CHK-STG-01 over Cloud Asset Inventory; results stored in Firestore and reported from there.",
+              "implementation-status": {
+                "state": "implemented"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

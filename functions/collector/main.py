@@ -66,12 +66,18 @@ def handler(request):
     now = datetime.datetime.now(datetime.timezone.utc)
     db = firestore.Client(project=PROJECT)
     results = run_checks()
+    prior = {d.id: d.to_dict() for d in db.collection("assessments").stream()}
     batch = db.batch()
     for r in results:
         ctl = CONTROLS[r["check_id"]]
-        batch.set(db.collection("assessments").document(doc_id(r["check_id"], r["resource"])), {
+        did = doc_id(r["check_id"], r["resource"])
+        before = prior.get(did, {})
+        # POA&M age: when this failure started. Kept across runs, cleared when it passes.
+        first_failed = ((before.get("first_failed_at") or now) if before.get("status") == "fail" else now) \
+            if r["status"] == "fail" else None
+        batch.set(db.collection("assessments").document(did), {
             **r, "title": ctl["title"], "severity": ctl["severity"],
-            "csf": ctl["csf"], "sp800_53": ctl["sp800_53"],
+            "csf": ctl["csf"], "sp800_53": ctl["sp800_53"], "first_failed_at": first_failed,
             "collected_at": now, "run_id": run_id, "collector": "grc-collector",
         }, merge=True)
     batch.commit()
@@ -79,9 +85,9 @@ def handler(request):
     # A failing result whose resource vanished (bucket deleted, key removed) would sit in
     # the POA&M forever. Anything still "fail" from an earlier run, not seen this run, is resolved.
     seen = {doc_id(r["check_id"], r["resource"]) for r in results}
-    for d in db.collection("assessments").where("status", "==", "fail").stream():
-        if d.id not in seen:
-            d.reference.update({"status": "resolved", "resolved_reason": "resource no longer present",
+    for did, d in prior.items():
+        if d.get("status") == "fail" and did not in seen:
+            db.collection("assessments").document(did).update({"status": "resolved", "resolved_reason": "resource no longer present",
                                 "collected_at": now, "run_id": run_id})
     summary = {"run_id": run_id, "results": len(results),
                "failing": sorted({r["check_id"] for r in results if r["status"] == "fail"})}

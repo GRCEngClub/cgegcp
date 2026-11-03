@@ -73,3 +73,18 @@ Lab note: Cloud Functions creates `gcf-v2-sources-<PROJECT_NUMBER>-<REGION>` its
 
 ### F11: WORM proof on the real reports bucket
 `retention_policy`: `isLocked=True; retentionPeriod=86400`. Delete attempt → `HTTPError 403: Object 'cgegcp-val-1103-reports/worm-proof.txt' is subject to bucket's retention policy or object retention and cannot be deleted or overwritten until ...`
+
+### F12: Stage 4 reports from Firestore only (2026-11-03)
+`grc-reporter` (datastore.viewer + objectCreator on the reports bucket) produced POA&M (JSON + CSV), SAR (Markdown) and OSCAL SSP (JSON) from 11 assessments. Samples in `docs/sample-reports/`.
+The SSP validates against the official `oscal_ssp_schema.json` v1.1.2 (`labs/05-reports/validate_ssp.py`; XML-Schema `\p{}` regex classes approximated for Python's `re`).
+Days open: documents written before `first_failed_at` existed restart at 0 once, then age normally.
+
+### F13: Separation of duties, proven
+Acting as `grc-reporter`:
+- Firestore write → `403 PERMISSION_DENIED Missing or insufficient permissions.`
+- Delete a report → `403 grc-reporter@<PROJECT>.iam.gserviceaccount.com does not have storage.objects.delete access to the Google Cloud Storage object.`
+
+### F14: Even the project Owner cannot impersonate a pipeline identity without a grant
+`gcloud auth print-access-token --impersonate-service-account=grc-reporter@...` as Owner →
+`PERMISSION_DENIED: Failed to impersonate ... Permission 'iam.serviceAccounts.getAccessToken' denied`.
+Lab 5 grants `roles/iam.serviceAccountTokenCreator` on `grc-reporter` only, runs the test, then removes it. The grant took **58s** to take effect.
