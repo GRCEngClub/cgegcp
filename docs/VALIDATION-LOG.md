@@ -88,3 +88,9 @@ Acting as `grc-reporter`:
 `gcloud auth print-access-token --impersonate-service-account=grc-reporter@...` as Owner →
 `PERMISSION_DENIED: Failed to impersonate ... Permission 'iam.serviceAccounts.getAccessToken' denied`.
 Lab 5 grants `roles/iam.serviceAccountTokenCreator` on `grc-reporter` only, runs the test, then removes it. The grant took **58s** to take effect.
+
+### F15 (V6 answered): Gemini on a new project
+`gemini-2.5-flash` and `gemini-2.5-flash-lite` → `404 Publisher model ... was not found or your project does not have access` on a fresh project, even though the catalog lists them.
+Current models (`gemini-3.1-flash-lite`, `gemini-3.5-flash-lite`, `gemini-3.5-flash`, `gemini-3.8-flash`) answer **only at location `global`**; `us-central1` returns 404.
+Course default: `gemini-3.5-flash-lite` at `global`, as the `gemini_model` variable. Lab tip: list models with `GET https://us-central1-aiplatform.googleapis.com/v1beta1/publishers/google/models`.
+Digest sample in `docs/sample-reports/digest.md`; every `[file:line]` citation checked against the SAR and correct. `temperature: 0`.
