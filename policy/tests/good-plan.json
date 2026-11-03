@@ -1,0 +1,670 @@
+{
+ "format_version": "1.2",
+ "resource_changes": [
+  {
+   "address": "google_cloud_run_service_iam_member.scheduler_invokes_remediator",
+   "mode": "managed",
+   "type": "google_cloud_run_service_iam_member",
+   "name": "scheduler_invokes_remediator",
+   "provider_name": "registry.terraform.io/hashicorp/google",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "condition": [],
+     "etag": "BwZfY7hnzbk=",
+     "id": "v1/projects/cge-gcp-lab/locations/us-central1/services/grc-remediator/roles/run.invoker/serviceAccount:grc-scheduler@cge-gcp-lab.iam.gserviceaccount.com",
+     "location": "us-central1",
+     "member": "serviceAccount:grc-scheduler@cge-gcp-lab.iam.gserviceaccount.com",
+     "project": "cge-gcp-lab",
+     "role": "roles/run.invoker",
+     "service": "v1/projects/cge-gcp-lab/locations/us-central1/services/grc-remediator"
+    },
+    "after": {
+     "condition": [],
+     "etag": "BwZfY7hnzbk=",
+     "id": "v1/projects/cge-gcp-lab/locations/us-central1/services/grc-remediator/roles/run.invoker/serviceAccount:grc-scheduler@cge-gcp-lab.iam.gserviceaccount.com",
+     "location": "us-central1",
+     "member": "serviceAccount:grc-scheduler@cge-gcp-lab.iam.gserviceaccount.com",
+     "project": "cge-gcp-lab",
+     "role": "roles/run.invoker",
+     "service": "v1/projects/cge-gcp-lab/locations/us-central1/services/grc-remediator"
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "condition": []
+    },
+    "after_sensitive": {
+     "condition": []
+    },
+    "before_identity": {
+     "condition_title": null,
+     "location": "us-central1",
+     "member": "serviceAccount:grc-scheduler@cge-gcp-lab.iam.gserviceaccount.com",
+     "project": "cge-gcp-lab",
+     "role": "roles/run.invoker",
+     "service": "v1/projects/cge-gcp-lab/locations/us-central1/services/grc-remediator"
+    },
+    "after_identity": {
+     "condition_title": null,
+     "location": "us-central1",
+     "member": "serviceAccount:grc-scheduler@cge-gcp-lab.iam.gserviceaccount.com",
+     "project": "cge-gcp-lab",
+     "role": "roles/run.invoker",
+     "service": "v1/projects/cge-gcp-lab/locations/us-central1/services/grc-remediator"
+    }
+   }
+  },
+  {
+   "address": "google_cloud_scheduler_job.remediate",
+   "mode": "managed",
+   "type": "google_cloud_scheduler_job",
+   "name": "remediate",
+   "provider_name": "registry.terraform.io/hashicorp/google",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "app_engine_http_target": [],
+     "attempt_deadline": "180s",
+     "deletion_policy": "DELETE",
+     "description": "",
+     "http_target": [
+      {
+       "body": "",
+       "headers": {},
+       "http_method": "POST",
+       "oauth_token": [],
+       "oidc_token": [
+        {
+         "audience": "https://grc-remediator-abcdefghij-uc.a.run.app",
+         "service_account_email": "grc-scheduler@cge-gcp-lab.iam.gserviceaccount.com"
+        }
+       ],
+       "uri": "https://grc-remediator-abcdefghij-uc.a.run.app/"
+      }
+     ],
+     "id": "projects/cge-gcp-lab/locations/us-central1/jobs/grc-remediate-daily",
+     "name": "grc-remediate-daily",
+     "paused": false,
+     "project": "cge-gcp-lab",
+     "pubsub_target": [],
+     "region": "us-central1",
+     "retry_config": [],
+     "schedule": "30 6 * * *",
+     "state": "ENABLED",
+     "time_zone": "Etc/UTC",
+     "timeouts": null
+    },
+    "after": {
+     "app_engine_http_target": [],
+     "attempt_deadline": "180s",
+     "deletion_policy": "DELETE",
+     "description": "",
+     "http_target": [
+      {
+       "body": "",
+       "headers": {},
+       "http_method": "POST",
+       "oauth_token": [],
+       "oidc_token": [
+        {
+         "audience": "https://grc-remediator-abcdefghij-uc.a.run.app",
+         "service_account_email": "grc-scheduler@cge-gcp-lab.iam.gserviceaccount.com"
+        }
+       ],
+       "uri": "https://grc-remediator-abcdefghij-uc.a.run.app/"
+      }
+     ],
+     "id": "projects/cge-gcp-lab/locations/us-central1/jobs/grc-remediate-daily",
+     "name": "grc-remediate-daily",
+     "paused": false,
+     "project": "cge-gcp-lab",
+     "pubsub_target": [],
+     "region": "us-central1",
+     "retry_config": [],
+     "schedule": "30 6 * * *",
+     "state": "ENABLED",
+     "time_zone": "Etc/UTC",
+     "timeouts": null
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "app_engine_http_target": [],
+     "http_target": [
+      {
+       "headers": {},
+       "oauth_token": [],
+       "oidc_token": [
+        {}
+       ]
+      }
+     ],
+     "pubsub_target": [],
+     "retry_config": []
+    },
+    "after_sensitive": {
+     "app_engine_http_target": [],
+     "http_target": [
+      {
+       "headers": {},
+       "oauth_token": [],
+       "oidc_token": [
+        {}
+       ]
+      }
+     ],
+     "pubsub_target": [],
+     "retry_config": []
+    },
+    "before_identity": {
+     "name": "grc-remediate-daily",
+     "project": "cge-gcp-lab",
+     "region": "us-central1"
+    },
+    "after_identity": {
+     "name": "grc-remediate-daily",
+     "project": "cge-gcp-lab",
+     "region": "us-central1"
+    }
+   }
+  },
+  {
+   "address": "google_cloudfunctions2_function.remediator",
+   "mode": "managed",
+   "type": "google_cloudfunctions2_function",
+   "name": "remediator",
+   "provider_name": "registry.terraform.io/hashicorp/google",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "build_config": [
+      {
+       "automatic_update_policy": [
+        {}
+       ],
+       "build": "projects/123456789012/locations/us-central1/builds/d020e2f5-85b5-481f-a4e5-8f0b7a045024",
+       "docker_repository": "projects/cge-gcp-lab/locations/us-central1/repositories/gcf-artifacts",
+       "entry_point": "handler",
+       "environment_variables": {},
+       "on_deploy_update_policy": [],
+       "runtime": "python312",
+       "service_account": "projects/cge-gcp-lab/serviceAccounts/grc-builder@cge-gcp-lab.iam.gserviceaccount.com",
+       "source": [
+        {
+         "repo_source": [],
+         "storage_source": [
+          {
+           "bucket": "cge-gcp-lab-fn-source",
+           "generation": 1793731707213054,
+           "object": "remediator/7a5d520cbad1c4027bb8de03a58fa62a.zip"
+          }
+         ]
+        }
+       ],
+       "worker_pool": ""
+      }
+     ],
+     "deletion_policy": "DELETE",
+     "description": "",
+     "effective_labels": {
+      "goog-terraform-provisioned": "true"
+     },
+     "environment": "GEN_2",
+     "event_trigger": [],
+     "id": "projects/cge-gcp-lab/locations/us-central1/functions/grc-remediator",
+     "kms_key_name": "",
+     "labels": {},
+     "location": "us-central1",
+     "name": "grc-remediator",
+     "project": "cge-gcp-lab",
+     "service_config": [
+      {
+       "all_traffic_on_latest_revision": true,
+       "available_cpu": "0.3333",
+       "available_memory": "512Mi",
+       "binary_authorization_policy": "",
+       "direct_vpc_egress": "",
+       "direct_vpc_network_interface": [],
+       "environment_variables": {
+        "GCP_PROJECT_ID": "cge-gcp-lab",
+        "LOG_EXECUTION_ID": "true",
+        "MODE": "approve"
+       },
+       "gcf_uri": "",
+       "ingress_settings": "ALLOW_ALL",
+       "max_instance_count": 1,
+       "max_instance_request_concurrency": 1,
+       "min_instance_count": 0,
+       "secret_environment_variables": [],
+       "secret_volumes": [],
+       "service": "projects/cge-gcp-lab/locations/us-central1/services/grc-remediator",
+       "service_account_email": "grc-remediator@cge-gcp-lab.iam.gserviceaccount.com",
+       "timeout_seconds": 300,
+       "uri": "https://grc-remediator-abcdefghij-uc.a.run.app",
+       "vpc_connector": "",
+       "vpc_connector_egress_settings": ""
+      }
+     ],
+     "state": "ACTIVE",
+     "terraform_labels": {
+      "goog-terraform-provisioned": "true"
+     },
+     "timeouts": null,
+     "update_time": "2026-11-03T19:06:35.621055070Z",
+     "url": "https://us-central1-cge-gcp-lab.cloudfunctions.net/grc-remediator"
+    },
+    "after": {
+     "build_config": [
+      {
+       "automatic_update_policy": [
+        {}
+       ],
+       "build": "projects/123456789012/locations/us-central1/builds/d020e2f5-85b5-481f-a4e5-8f0b7a045024",
+       "docker_repository": "projects/cge-gcp-lab/locations/us-central1/repositories/gcf-artifacts",
+       "entry_point": "handler",
+       "environment_variables": {},
+       "on_deploy_update_policy": [],
+       "runtime": "python312",
+       "service_account": "projects/cge-gcp-lab/serviceAccounts/grc-builder@cge-gcp-lab.iam.gserviceaccount.com",
+       "source": [
+        {
+         "repo_source": [],
+         "storage_source": [
+          {
+           "bucket": "cge-gcp-lab-fn-source",
+           "generation": 1793731707213054,
+           "object": "remediator/7a5d520cbad1c4027bb8de03a58fa62a.zip"
+          }
+         ]
+        }
+       ],
+       "worker_pool": ""
+      }
+     ],
+     "deletion_policy": "DELETE",
+     "description": "",
+     "effective_labels": {
+      "goog-terraform-provisioned": "true"
+     },
+     "environment": "GEN_2",
+     "event_trigger": [],
+     "id": "projects/cge-gcp-lab/locations/us-central1/functions/grc-remediator",
+     "kms_key_name": "",
+     "labels": {},
+     "location": "us-central1",
+     "name": "grc-remediator",
+     "project": "cge-gcp-lab",
+     "service_config": [
+      {
+       "all_traffic_on_latest_revision": true,
+       "available_cpu": "0.3333",
+       "available_memory": "512Mi",
+       "binary_authorization_policy": "",
+       "direct_vpc_egress": "",
+       "direct_vpc_network_interface": [],
+       "environment_variables": {
+        "GCP_PROJECT_ID": "cge-gcp-lab",
+        "LOG_EXECUTION_ID": "true",
+        "MODE": "approve"
+       },
+       "gcf_uri": "",
+       "ingress_settings": "ALLOW_ALL",
+       "max_instance_count": 1,
+       "max_instance_request_concurrency": 1,
+       "min_instance_count": 0,
+       "secret_environment_variables": [],
+       "secret_volumes": [],
+       "service": "projects/cge-gcp-lab/locations/us-central1/services/grc-remediator",
+       "service_account_email": "grc-remediator@cge-gcp-lab.iam.gserviceaccount.com",
+       "timeout_seconds": 300,
+       "uri": "https://grc-remediator-abcdefghij-uc.a.run.app",
+       "vpc_connector": "",
+       "vpc_connector_egress_settings": ""
+      }
+     ],
+     "state": "ACTIVE",
+     "terraform_labels": {
+      "goog-terraform-provisioned": "true"
+     },
+     "timeouts": null,
+     "update_time": "2026-11-03T19:06:35.621055070Z",
+     "url": "https://us-central1-cge-gcp-lab.cloudfunctions.net/grc-remediator"
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "build_config": [
+      {
+       "automatic_update_policy": [
+        {}
+       ],
+       "environment_variables": {},
+       "on_deploy_update_policy": [],
+       "source": [
+        {
+         "repo_source": [],
+         "storage_source": [
+          {}
+         ]
+        }
+       ]
+      }
+     ],
+     "effective_labels": {},
+     "event_trigger": [],
+     "labels": {},
+     "service_config": [
+      {
+       "direct_vpc_network_interface": [],
+       "environment_variables": {},
+       "secret_environment_variables": [],
+       "secret_volumes": []
+      }
+     ],
+     "terraform_labels": {}
+    },
+    "after_sensitive": {
+     "build_config": [
+      {
+       "automatic_update_policy": [
+        {}
+       ],
+       "environment_variables": {},
+       "on_deploy_update_policy": [],
+       "source": [
+        {
+         "repo_source": [],
+         "storage_source": [
+          {}
+         ]
+        }
+       ]
+      }
+     ],
+     "effective_labels": {},
+     "event_trigger": [],
+     "labels": {},
+     "service_config": [
+      {
+       "direct_vpc_network_interface": [],
+       "environment_variables": {},
+       "secret_environment_variables": [],
+       "secret_volumes": []
+      }
+     ],
+     "terraform_labels": {}
+    },
+    "before_identity": {
+     "location": "us-central1",
+     "name": "grc-remediator",
+     "project": "cge-gcp-lab"
+    },
+    "after_identity": {
+     "location": "us-central1",
+     "name": "grc-remediator",
+     "project": "cge-gcp-lab"
+    }
+   }
+  },
+  {
+   "address": "google_project_iam_custom_role.bucket_remediator",
+   "mode": "managed",
+   "type": "google_project_iam_custom_role",
+   "name": "bucket_remediator",
+   "provider_name": "registry.terraform.io/hashicorp/google",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "deleted": false,
+     "deletion_policy": "DELETE",
+     "description": "Remove public bucket grants and enforce public access prevention. Nothing else. managed-by: cgegcp",
+     "id": "projects/cge-gcp-lab/roles/grcBucketRemediator",
+     "name": "projects/cge-gcp-lab/roles/grcBucketRemediator",
+     "permissions": [
+      "storage.buckets.get",
+      "storage.buckets.getIamPolicy",
+      "storage.buckets.setIamPolicy",
+      "storage.buckets.update"
+     ],
+     "project": "cge-gcp-lab",
+     "role_id": "grcBucketRemediator",
+     "stage": "GA",
+     "title": "GRC bucket remediator"
+    },
+    "after": {
+     "deleted": false,
+     "deletion_policy": "DELETE",
+     "description": "Remove public bucket grants and enforce public access prevention. Nothing else. managed-by: cgegcp",
+     "id": "projects/cge-gcp-lab/roles/grcBucketRemediator",
+     "name": "projects/cge-gcp-lab/roles/grcBucketRemediator",
+     "permissions": [
+      "storage.buckets.get",
+      "storage.buckets.getIamPolicy",
+      "storage.buckets.setIamPolicy",
+      "storage.buckets.update"
+     ],
+     "project": "cge-gcp-lab",
+     "role_id": "grcBucketRemediator",
+     "stage": "GA",
+     "title": "GRC bucket remediator"
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "permissions": [
+      false,
+      false,
+      false,
+      false
+     ]
+    },
+    "after_sensitive": {
+     "permissions": [
+      false,
+      false,
+      false,
+      false
+     ]
+    },
+    "before_identity": {
+     "project": "cge-gcp-lab",
+     "role_id": "grcBucketRemediator"
+    },
+    "after_identity": {
+     "project": "cge-gcp-lab",
+     "role_id": "grcBucketRemediator"
+    }
+   }
+  },
+  {
+   "address": "google_project_iam_member.remediator_firestore",
+   "mode": "managed",
+   "type": "google_project_iam_member",
+   "name": "remediator_firestore",
+   "provider_name": "registry.terraform.io/hashicorp/google",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "condition": [],
+     "etag": "BwZfY7VsDFw=",
+     "id": "cge-gcp-lab/roles/datastore.user/serviceAccount:grc-remediator@cge-gcp-lab.iam.gserviceaccount.com",
+     "member": "serviceAccount:grc-remediator@cge-gcp-lab.iam.gserviceaccount.com",
+     "project": "cge-gcp-lab",
+     "role": "roles/datastore.user"
+    },
+    "after": {
+     "condition": [],
+     "etag": "BwZfY7VsDFw=",
+     "id": "cge-gcp-lab/roles/datastore.user/serviceAccount:grc-remediator@cge-gcp-lab.iam.gserviceaccount.com",
+     "member": "serviceAccount:grc-remediator@cge-gcp-lab.iam.gserviceaccount.com",
+     "project": "cge-gcp-lab",
+     "role": "roles/datastore.user"
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "condition": []
+    },
+    "after_sensitive": {
+     "condition": []
+    },
+    "before_identity": {
+     "condition_title": null,
+     "member": "serviceAccount:grc-remediator@cge-gcp-lab.iam.gserviceaccount.com",
+     "project": "cge-gcp-lab",
+     "role": "roles/datastore.user"
+    },
+    "after_identity": {
+     "condition_title": null,
+     "member": "serviceAccount:grc-remediator@cge-gcp-lab.iam.gserviceaccount.com",
+     "project": "cge-gcp-lab",
+     "role": "roles/datastore.user"
+    }
+   }
+  },
+  {
+   "address": "google_project_iam_member.remediator_role",
+   "mode": "managed",
+   "type": "google_project_iam_member",
+   "name": "remediator_role",
+   "provider_name": "registry.terraform.io/hashicorp/google",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "condition": [],
+     "etag": "BwZfY7VsDFw=",
+     "id": "cge-gcp-lab/projects/cge-gcp-lab/roles/grcBucketRemediator/serviceAccount:grc-remediator@cge-gcp-lab.iam.gserviceaccount.com",
+     "member": "serviceAccount:grc-remediator@cge-gcp-lab.iam.gserviceaccount.com",
+     "project": "cge-gcp-lab",
+     "role": "projects/cge-gcp-lab/roles/grcBucketRemediator"
+    },
+    "after": {
+     "condition": [],
+     "etag": "BwZfY7VsDFw=",
+     "id": "cge-gcp-lab/projects/cge-gcp-lab/roles/grcBucketRemediator/serviceAccount:grc-remediator@cge-gcp-lab.iam.gserviceaccount.com",
+     "member": "serviceAccount:grc-remediator@cge-gcp-lab.iam.gserviceaccount.com",
+     "project": "cge-gcp-lab",
+     "role": "projects/cge-gcp-lab/roles/grcBucketRemediator"
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "condition": []
+    },
+    "after_sensitive": {
+     "condition": []
+    },
+    "before_identity": {
+     "condition_title": null,
+     "member": "serviceAccount:grc-remediator@cge-gcp-lab.iam.gserviceaccount.com",
+     "project": "cge-gcp-lab",
+     "role": "projects/cge-gcp-lab/roles/grcBucketRemediator"
+    },
+    "after_identity": {
+     "condition_title": null,
+     "member": "serviceAccount:grc-remediator@cge-gcp-lab.iam.gserviceaccount.com",
+     "project": "cge-gcp-lab",
+     "role": "projects/cge-gcp-lab/roles/grcBucketRemediator"
+    }
+   }
+  },
+  {
+   "address": "google_storage_bucket_object.remediator",
+   "mode": "managed",
+   "type": "google_storage_bucket_object",
+   "name": "remediator",
+   "provider_name": "registry.terraform.io/hashicorp/google",
+   "change": {
+    "actions": [
+     "no-op"
+    ],
+    "before": {
+     "bucket": "cge-gcp-lab-fn-source",
+     "cache_control": "",
+     "content": null,
+     "content_disposition": "",
+     "content_encoding": "",
+     "content_language": "",
+     "content_type": "application/zip",
+     "contexts": [],
+     "crc32c": "kjLfxA==",
+     "customer_encryption": [],
+     "deletion_policy": "DELETE",
+     "detect_md5hash": "el1SDLrRxAJ7uN4DpY+mKg==",
+     "event_based_hold": false,
+     "force_empty_content_type": null,
+     "generation": 1793732756099874,
+     "id": "cge-gcp-lab-fn-source-remediator/7a5d520cbad1c4027bb8de03a58fa62a.zip",
+     "kms_key_name": "",
+     "md5hash": "el1SDLrRxAJ7uN4DpY+mKg==",
+     "md5hexhash": "7a5d520cbad1c4027bb8de03a58fa62a",
+     "media_link": "https://storage.googleapis.com/download/storage/v1/b/cge-gcp-lab-fn-source/o/remediator%2F7a5d520cbad1c4027bb8de03a58fa62a.zip?generation=1793732756099874&alt=media",
+     "metadata": {},
+     "name": "remediator/7a5d520cbad1c4027bb8de03a58fa62a.zip",
+     "output_name": "remediator/7a5d520cbad1c4027bb8de03a58fa62a.zip",
+     "retention": [],
+     "self_link": "https://www.googleapis.com/storage/v1/b/cge-gcp-lab-fn-source/o/remediator%2F7a5d520cbad1c4027bb8de03a58fa62a.zip",
+     "source": "./build/remediator.zip",
+     "source_md5hash": "",
+     "storage_class": "STANDARD",
+     "temporary_hold": false,
+     "timeouts": null
+    },
+    "after": {
+     "bucket": "cge-gcp-lab-fn-source",
+     "cache_control": "",
+     "content": null,
+     "content_disposition": "",
+     "content_encoding": "",
+     "content_language": "",
+     "content_type": "application/zip",
+     "contexts": [],
+     "crc32c": "kjLfxA==",
+     "customer_encryption": [],
+     "deletion_policy": "DELETE",
+     "detect_md5hash": "el1SDLrRxAJ7uN4DpY+mKg==",
+     "event_based_hold": false,
+     "force_empty_content_type": null,
+     "generation": 1793732756099874,
+     "id": "cge-gcp-lab-fn-source-remediator/7a5d520cbad1c4027bb8de03a58fa62a.zip",
+     "kms_key_name": "",
+     "md5hash": "el1SDLrRxAJ7uN4DpY+mKg==",
+     "md5hexhash": "7a5d520cbad1c4027bb8de03a58fa62a",
+     "media_link": "https://storage.googleapis.com/download/storage/v1/b/cge-gcp-lab-fn-source/o/remediator%2F7a5d520cbad1c4027bb8de03a58fa62a.zip?generation=1793732756099874&alt=media",
+     "metadata": {},
+     "name": "remediator/7a5d520cbad1c4027bb8de03a58fa62a.zip",
+     "output_name": "remediator/7a5d520cbad1c4027bb8de03a58fa62a.zip",
+     "retention": [],
+     "self_link": "https://www.googleapis.com/storage/v1/b/cge-gcp-lab-fn-source/o/remediator%2F7a5d520cbad1c4027bb8de03a58fa62a.zip",
+     "source": "./build/remediator.zip",
+     "source_md5hash": "",
+     "storage_class": "STANDARD",
+     "temporary_hold": false,
+     "timeouts": null
+    },
+    "after_unknown": {},
+    "before_sensitive": {
+     "content": true,
+     "contexts": [],
+     "customer_encryption": [],
+     "metadata": {},
+     "retention": []
+    },
+    "after_sensitive": {
+     "content": true,
+     "contexts": [],
+     "customer_encryption": [],
+     "metadata": {},
+     "retention": []
+    }
+   }
+  }
+ ]
+}

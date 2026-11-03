@@ -1,0 +1,46 @@
+# Policy gate: every pull request plans every stage and checks the plan against policy/*.rego.
+# Preventive control for CHK-IAM-01, CHK-IAM-02, CHK-STG-01, CHK-STG-02 and the remediator identity.
+# Skips itself until YOUR fork is armed (labs/03-foundation/arm-your-fork.sh). Upstream is never armed.
+name: gate
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write # lets GitHub mint the OIDC token that Workload Identity Federation trusts
+
+jobs:
+  plan-and-check:
+    if: vars.GCP_WIF_PROVIDER != '' && vars.GCP_PROJECT_ID != ''
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        stage: [00-foundation, 01-discovery, 02-activation, 03-evidence-store, 04-reporting, 05-narrative, 06-enforcement]
+    env:
+      CLOUDSDK_CORE_PROJECT: ${{ vars.GCP_PROJECT_ID }}
+      CLOUDSDK_BILLING_QUOTA_PROJECT: ${{ vars.GCP_PROJECT_ID }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: ${{ vars.GCP_WIF_PROVIDER }}
+          project_id: ${{ vars.GCP_PROJECT_ID }}
+      - uses: google-github-actions/setup-gcloud@v3
+      - uses: hashicorp/setup-terraform@v4
+        with:
+          terraform_wrapper: false
+      - name: Install conftest
+        run: |
+          curl -sSL https://github.com/open-policy-agent/conftest/releases/download/v0.56.0/conftest_0.56.0_Linux_x86_64.tar.gz | tar xz conftest
+          sudo mv conftest /usr/local/bin/
+      - name: Plan
+        working-directory: stages/${{ matrix.stage }}
+        run: |
+          printf 'project_id   = "%s"\nstate_bucket = "%s-tfstate"\n' "$CLOUDSDK_CORE_PROJECT" "$CLOUDSDK_CORE_PROJECT" > project.auto.tfvars
+          terraform init -input=false -backend-config="bucket=${CLOUDSDK_CORE_PROJECT}-tfstate"
+          terraform plan -input=false -lock=false -out=tfplan
+          terraform show -json tfplan > plan.json
+      - name: Gate
+        run: conftest test --no-color -p policy stages/${{ matrix.stage }}/plan.json

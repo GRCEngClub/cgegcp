@@ -7,3 +7,4 @@ labs/03-foundation/backend.hcl
 build/
 __pycache__/
 validation/raw/*-tmp*
+validation/raw/

@@ -87,7 +87,7 @@ resource "google_cloud_scheduler_job" "report" {
 
   http_target {
     http_method = "POST"
-    uri         = "${google_cloudfunctions2_function.reporter.service_config[0].uri}?report=${each.key}"
+    uri         = "${google_cloudfunctions2_function.reporter.service_config[0].uri}/?report=${each.key}" # Scheduler stores the trailing "/"; without it every plan shows drift
     oidc_token {
       service_account_email = local.scheduler.email
       audience              = google_cloudfunctions2_function.reporter.service_config[0].uri

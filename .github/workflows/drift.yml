@@ -1,0 +1,49 @@
+# Drift: every night, plan every stage. Any change means reality and code disagree;
+# the job opens an issue with the diff. Read-only identity: drift is reported, never "fixed" here.
+name: drift
+on:
+  schedule:
+    - cron: "0 10 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+  issues: write
+
+jobs:
+  drift:
+    if: vars.GCP_WIF_PROVIDER != '' && vars.GCP_PROJECT_ID != ''
+    runs-on: ubuntu-latest
+    env:
+      CLOUDSDK_CORE_PROJECT: ${{ vars.GCP_PROJECT_ID }}
+      CLOUDSDK_BILLING_QUOTA_PROJECT: ${{ vars.GCP_PROJECT_ID }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: ${{ vars.GCP_WIF_PROVIDER }}
+          project_id: ${{ vars.GCP_PROJECT_ID }}
+      - uses: google-github-actions/setup-gcloud@v3
+      - uses: hashicorp/setup-terraform@v4
+        with:
+          terraform_wrapper: false
+      - name: Plan every stage
+        run: |
+          drifted=""
+          for d in stages/*/; do
+            s=$(basename "$d")
+            printf 'project_id   = "%s"\nstate_bucket = "%s-tfstate"\n' "$CLOUDSDK_CORE_PROJECT" "$CLOUDSDK_CORE_PROJECT" > "$d/project.auto.tfvars"
+            (cd "$d" && terraform init -input=false -backend-config="bucket=${CLOUDSDK_CORE_PROJECT}-tfstate" >/dev/null)
+            set +e
+            (cd "$d" && terraform plan -input=false -lock=false -detailed-exitcode -no-color > "/tmp/$s.txt" 2>&1)
+            rc=$?
+            set -e
+            if [ "$rc" = 2 ]; then drifted="$drifted $s"; fi
+            if [ "$rc" = 1 ]; then echo "plan failed for $s"; cat "/tmp/$s.txt"; exit 1; fi
+          done
+          if [ -n "$drifted" ]; then
+            { echo "Drift detected in:$drifted"; echo; for s in $drifted; do echo "### $s"; echo '```'; grep -E '^\s+[~+-]|^Plan:' "/tmp/$s.txt" | head -60; echo '```'; done; } > /tmp/body.md
+            gh issue create --title "Drift detected $(date -u +%F)" --body-file /tmp/body.md
+          fi

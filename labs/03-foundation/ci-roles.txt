@@ -1,0 +1,16 @@
+# Read-only roles for the CI identity (your fork's GitHub Actions, via Workload Identity
+# Federation). CI only PLANS: it never applies. One role per line.
+roles/cloudasset.viewer
+roles/iam.securityReviewer
+roles/iam.roleViewer
+roles/serviceusage.serviceUsageViewer
+roles/serviceusage.serviceUsageConsumer
+roles/logging.viewer
+roles/storage.bucketViewer
+roles/datastore.viewer
+roles/cloudfunctions.viewer
+roles/run.viewer
+roles/cloudscheduler.viewer
+# Bucket-scoped (granted by arm-your-fork.sh, not project-wide):
+#   roles/storage.objectUser   on <PROJECT>-tfstate   (read state, write the plan lock)
+#   roles/storage.objectViewer on <PROJECT>-fn-source (plan reads the function zips)

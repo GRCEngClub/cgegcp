@@ -2,7 +2,7 @@
   "system-security-plan": {
     "uuid": "83216c0c-0f08-5f31-8017-abb3e56560a5",
     "metadata": {
-      "title": "System Security Plan: cgegcp-val-1103",
+      "title": "System Security Plan: cge-gcp-lab",
       "last-modified": "2026-11-03T18:40:58.762302+00:00",
       "version": "2026.11.03",
       "oscal-version": "1.1.2"
@@ -17,7 +17,7 @@
           "id": "20ce9b12-06c4-51a0-a137-7adacf4b2eb5"
         }
       ],
-      "system-name": "cgegcp-val-1103",
+      "system-name": "cge-gcp-lab",
       "description": "Google Cloud project assessed by the CGE-GCP evidence pipeline.",
       "security-sensitivity-level": "fips-199-moderate",
       "system-information": {
@@ -47,7 +47,7 @@
         "state": "operational"
       },
       "authorization-boundary": {
-        "description": "The single Google Cloud project cgegcp-val-1103; no Organization."
+        "description": "The single Google Cloud project cge-gcp-lab; no Organization."
       }
     },
     "system-implementation": {
@@ -61,7 +61,7 @@
         {
           "uuid": "20ce9b12-06c4-51a0-a137-7adacf4b2eb5",
           "type": "this-system",
-          "title": "cgegcp-val-1103",
+          "title": "cge-gcp-lab",
           "description": "The assessed project.",
           "status": {
             "state": "operational"
