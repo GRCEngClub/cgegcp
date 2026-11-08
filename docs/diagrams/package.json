@@ -1,0 +1,12 @@
+{
+  "name": "cgegcp-diagrams",
+  "private": true,
+  "type": "module",
+  "description": "Course diagrams, rendered light and dark in GRC Engineering Club style",
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "devDependencies": {
+    "@eraserlabs/diagrams-cli": "0.2.0"
+  }
+}

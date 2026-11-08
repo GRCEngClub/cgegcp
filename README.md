@@ -16,6 +16,13 @@ This is the lab and capstone repo for **Certified GRC Engineer, GCP Specialty (C
 
 The policy gate (`policy/*.rego`) checks every pull request's plan. `drift.yml` plans nightly and opens an issue if reality and code disagree.
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/diagrams/01-pipeline-architecture-dark.png">
+  <img alt="CGE-GCP pipeline architecture" src="docs/diagrams/01-pipeline-architecture.png">
+</picture>
+
+More diagrams (identities, daily loop, remediation ladder, CI gate, data model) are in [`docs/diagrams/`](docs/diagrams/README.md).
+
 ## Start here
 
 1. `docs/SETUP.md` (account, budget, logins), then the labs in order: `labs/01-sandbox` to `labs/06-loop`.
