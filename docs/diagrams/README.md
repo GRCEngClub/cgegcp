@@ -10,6 +10,7 @@ Course diagrams for CGE-GCP, drawn in the [GRC Engineering Club](https://github.
 | 4 | [Remediation ladder](04-remediation-ladder.png): `report_only` / `approve` / `auto`, and the recurrence rule | Lab 6 |
 | 5 | [CI gate and drift](05-ci-gate-and-drift.png): `gate.yml`, `drift.yml`, the rego rules | Lab 3, Lab 6 step 6 |
 | 6 | [Firestore data model](06-firestore-data-model.png): `frameworks`, `mappings`, `assessments`, `remediations` | Labs 4–5 |
+| 7 | [Google Cloud architecture](07-gcp-architecture.png): every resource the Terraform creates, by its real name, with the official Google Cloud icons | `README.md`, Labs 1–6 |
 
 Every diagram comes in two versions: `NN-name.png` (light) and `NN-name-dark.png` (dark). To embed one so GitHub shows the version that matches the reader's theme:
 
@@ -32,7 +33,7 @@ The diagrams are code. Each PNG pair is built from one script in [`src/`](src/) 
 ```sh
 cd docs/diagrams
 npm install            # once; installs the pinned CLI (it drives a local Chromium)
-npm run build          # rebuild all twelve PNGs
+npm run build          # rebuild every PNG
 npm run build -- 04    # rebuild just diagram 04, light and dark
 ```
 
@@ -40,6 +41,7 @@ npm run build -- 04    # rebuild just diagram 04, light and dark
 |---|---|
 | `src/club.mjs` | The club palette (light and dark) and the shared pieces: `card`, `band`, `arrow`, `text`. Change a color here and every diagram follows. |
 | `src/NN-*.mjs` | One diagram. The wording lives in plain arrays at the top; layout constants sit just below. Most edits are text changes in those arrays. |
+| `icons/` | Official Google Cloud icons (`gcloud-*.svg`), vendored so builds don't depend on a remote catalog. Sources are listed in [`icons/README.md`](icons/README.md). |
 | `build.mjs` | Renders each script once per theme at 2×, then writes `NN-name.png` and `NN-name-dark.png`. The build fails on an unknown icon name. |
 
 Rules that keep these readable (and keep the lines from crossing):
@@ -50,4 +52,4 @@ Rules that keep these readable (and keep the lines from crossing):
 - Labels come from the code: role names from `stages/*/main.tf`, check IDs from `functions/collector/controls.json`, control IDs from `docs/CONTROLS.md`. If you change one there, change it here too.
 - Club writing style: sentence case, no trailing periods on short labels, mono type for identifiers and control tags.
 
-Icons are names from Eraser's icon set (`https://storage.googleapis.com/eraser-public-assets/canvas-icons/<name>.svg`). Commit the script and both PNGs together.
+For a Google Cloud service, use its official icon (`icon: 'gcloud-firestore'` and so on). Other icons are line icons from Eraser's set (`https://storage.googleapis.com/eraser-public-assets/canvas-icons/<name>.svg`). Commit the script and both PNGs together.

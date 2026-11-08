@@ -10,7 +10,7 @@ const STEP = 84, CARD_H = 60;
 const GATE = [
   ['git-pull-request', 'Pull request opened', 'every change to stages/ or policy/'],
   ['key-round', 'OIDC token', 'GitHub mints it for this run'],
-  ['shield', 'Workload Identity Federation', 'short-lived token, read-only CI identity'],
+  ['gcloud-workload-identity-pool', 'Workload Identity Federation', 'short-lived token, read-only CI identity'],
   ['terminal', 'terraform init', 'one job per stage, state in the tfstate bucket'],
   ['terminal', 'terraform plan', 'then terraform show -json'],
   ['shield-check', 'conftest test', 'the plan against policy/*.rego', true],
@@ -18,7 +18,7 @@ const GATE = [
 const DRIFT = [
   ['calendar-clock', 'Scheduled run', 'nightly'],
   ['key-round', 'OIDC token', 'GitHub mints it for this run'],
-  ['shield', 'Workload Identity Federation', 'same read-only CI identity'],
+  ['gcloud-workload-identity-pool', 'Workload Identity Federation', 'same read-only CI identity'],
   ['terminal', 'terraform plan -detailed-exitcode', 'every stage. Exit code 2 means changes'],
   ['github', 'Open a GitHub issue', 'with the diff: reality and code disagree'],
   ['eye', 'Reported, never fixed by CI', 'you decide: revert the change, or codify it'],

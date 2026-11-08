@@ -45,9 +45,12 @@ export function canvas(t, { width, height, meta, title, sub }) {
       for (const line of [note].flat().filter(Boolean)) {
         texts.push({ text: line, typeface: 'clean', fontSize: 11, color: t.secondary, hAlign: align });
       }
+      // Official Google Cloud icons (gcloud-*, vendored in icons/) keep their own colors and
+      // render larger; generic line icons are tinted to match the text.
+      const brand = icon && icon.startsWith('gcloud-');
       entities.push({ tag: 'Shape', id, shape: 'rectangle', styleMode: 'plain', cornerRadius: 'round',
         x, y, width: w, height: h, bgColor: fill ?? t.card, borderColor: accent ? t.orange : t.hairline,
-        borderWidth: accent ? 1.5 : 1, iconColor: accent ? t.orangeText : t.secondary,
+        borderWidth: accent ? 1.5 : 1, ...(brand ? { iconProps: { size: 'lg' } } : { iconColor: accent ? t.orangeText : t.secondary }),
         ...(icon ? { icon } : {}), ...(tag ? { badge: tagBadge(tag) } : {}), texts });
       return { id, x, y, w, h };
     },

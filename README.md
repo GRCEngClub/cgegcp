@@ -21,6 +21,13 @@ The policy gate (`policy/*.rego`) checks every pull request's plan. `drift.yml` 
   <img alt="CGE-GCP pipeline architecture" src="docs/diagrams/01-pipeline-architecture.png">
 </picture>
 
+What the Terraform builds, resource by resource:
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/diagrams/07-gcp-architecture-dark.png">
+  <img alt="Google Cloud resources created by the pipeline" src="docs/diagrams/07-gcp-architecture.png">
+</picture>
+
 More diagrams (identities, daily loop, remediation ladder, CI gate, data model) are in [`docs/diagrams/`](docs/diagrams/README.md).
 
 ## Start here

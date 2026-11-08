@@ -5,24 +5,24 @@ import { canvas } from './club.mjs';
 
 const ROWS = [
   { id: 'builder', name: 'grc-builder', note: 'Stage 3+ · build only', icon: 'hammer', grants: [
-    ['objectViewer', 'Function source bucket', 'package'],
-    ['cloudbuild.builds.builder', 'Cloud Build', 'hammer'] ] },
+    ['objectViewer', 'Function source bucket', 'gcloud-cloud-storage'],
+    ['cloudbuild.builds.builder', 'Cloud Build', 'gcloud-cloud-build'] ] },
   { id: 'collector', name: 'grc-collector', note: 'Stage 3 · changes nothing', icon: 'scan-search', grants: [
-    ['cloudasset.viewer', 'Cloud Asset Inventory', 'list-tree'],
-    ['datastore.user', 'Firestore · writes assessments', 'database'] ] },
+    ['cloudasset.viewer', 'Cloud Asset Inventory', 'gcloud-asset-inventory'],
+    ['datastore.user', 'Firestore · writes assessments', 'gcloud-firestore'] ] },
   { id: 'reporter', name: 'grc-reporter', note: 'Stage 4 · create-only on reports', icon: 'file-text', grants: [
-    ['datastore.viewer', 'Firestore · reads evidence', 'database'],
-    ['objectCreator', 'Reports bucket · locked, AU-9', 'lock'] ] },
+    ['datastore.viewer', 'Firestore · reads evidence', 'gcloud-firestore'],
+    ['objectCreator', 'Reports bucket · locked, AU-9', 'gcloud-cloud-storage'] ] },
   { id: 'narrator', name: 'grc-narrator', note: 'Stage 5 · optional', icon: 'sparkles', grants: [
-    ['objectViewer + objectCreator', 'Reports bucket · digest', 'lock'],
-    ['aiplatform.user', 'Vertex AI', 'brain'] ] },
+    ['objectViewer + objectCreator', 'Reports bucket · digest', 'gcloud-cloud-storage'],
+    ['aiplatform.user', 'Vertex AI', 'gcloud-vertex-ai'] ] },
   { id: 'remediator', name: 'grc-remediator', note: 'Stage 6 · the only identity that changes resources', icon: 'tool', accent: true, grants: [
-    ['grcBucketRemediator · 4 permissions', 'Bucket IAM + settings', 'archive'],
-    ['datastore.user', 'Firestore · remediations', 'database'] ] },
+    ['grcBucketRemediator · 4 permissions', 'Bucket IAM + settings', 'gcloud-cloud-storage'],
+    ['datastore.user', 'Firestore · remediations', 'gcloud-firestore'] ] },
   { id: 'scheduler', name: 'grc-scheduler', note: 'Invoke only', icon: 'clock', grants: [
-    ['run.invoker', 'Collector, reporter, narrator, remediator', 'zap'] ] },
+    ['run.invoker', 'Collector, reporter, narrator, remediator', 'gcloud-cloud-run'] ] },
   { id: 'ci', name: 'GitHub Actions CI', note: 'Workload Identity Federation · no keys · never applies', icon: 'github', grants: [
-    ['read-only roles + state lock', 'Project (read) + tfstate bucket', 'file-lock'] ] },
+    ['read-only roles + state lock', 'Project (read) + tfstate bucket', 'gcloud-cloud-storage'] ] },
 ];
 
 const W = 1200, ROW_H = 132, TOP = 132, ID_X = 40, ID_W = 340, ID_H = 76, RES_X = 820, RES_W = 340, RES_H = 52;
