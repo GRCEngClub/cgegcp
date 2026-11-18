@@ -1,6 +1,6 @@
 # cgegcp: CGE-GCP labs and capstone starter
 
-**Tenancy assumption: one Google Cloud project on a personal @gmail.com account, with no Organization above it.** Nothing in this repo needs an Organization. If you work inside one, see "If you have an Organization" in `docs/SETUP.md`.
+**Tenancy assumption: one Google Cloud project on a personal @gmail.com account, with no Organization above it.** Nothing in this repo needs an Organization. If you work inside one, see the appendix: `docs/APPENDIX-ORGANIZATION.md`.
 
 This is the lab and capstone repo for **Certified GRC Engineer, GCP Specialty (CGE-GCP)** from the GRC Engineering Club Training Academy. You build a six-stage GRC engineering pipeline in your own project:
 
