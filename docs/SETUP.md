@@ -48,6 +48,8 @@ python3 -m venv .venv
 
 ## If you have an Organization
 
+The full appendix is in [`docs/APPENDIX-ORGANIZATION.md`](APPENDIX-ORGANIZATION.md): folder-level guardrails, dry-run mode, custom constraints, and Security Command Center.
+
 The pipeline works unchanged inside an Organization. You also gain:
 
 - **Org Policy.** Constraints such as `storage.publicAccessPrevention` and `iam.managed.disableServiceAccountKeyCreation` block bad resources at request time, with a native dry-run mode. On a project with no Organization, even Owner gets `Permission 'orgpolicy.policies.create' denied`, and `roles/orgpolicy.policyAdmin` "is not supported for this resource".
