@@ -8,6 +8,8 @@ The machine-graded version lives at **cert.grcengclub.com/rubric/cge-gcp**. If i
 
 ## Submission requirements
 
+The video (07_01) lists the headline requirements; this page is the complete list.
+
 - Public GitHub repository, ≤ 50 MB, ≤ 10,000 files
 - README.md that opens with your tenancy statement and explains how to deploy from an empty project
 - Terraform for at least: the foundation, stages 1 to 3 (discovery, activation, evidence store with a locked reports bucket), and Stage 6 remediation in `report_only` mode or higher

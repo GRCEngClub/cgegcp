@@ -22,6 +22,8 @@ Accounts on a company or custom domain (Google Workspace, Cloud Identity) put ev
 | conftest | OPA 1.15 |
 | shellcheck | optional, used by `self-check.sh` |
 
+The video on the provider (03_01) mentions `google-beta` for preview features. The course repo needs only the `google` provider, plus HashiCorp's `archive` and `external` helpers that `terraform init` downloads for you.
+
 ## 4. Log in twice, then pin the project
 
 ```bash

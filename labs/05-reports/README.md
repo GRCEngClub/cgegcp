@@ -20,7 +20,7 @@ terraform init -backend-config=../../labs/03-foundation/backend.hcl
 terraform apply
 ```
 
-`grc-reporter` gets exactly two permissions: read Firestore, and **create** objects in the reports bucket. It can't overwrite, delete or read Asset Inventory.
+`grc-reporter` gets exactly two role grants (the video says "two permissions"): `roles/datastore.viewer` on the project to read Firestore, and `roles/storage.objectCreator` on the reports bucket to **create** objects. It can't overwrite, delete or read Asset Inventory.
 
 ### 2. Generate the reports
 
@@ -45,7 +45,7 @@ gcloud storage cp "$(gcloud storage ls gs://YOUR_PROJECT_ID-reports/ssp/ | tail 
 .venv/bin/python labs/05-reports/validate_ssp.py /tmp/oscal_ssp_schema.json /tmp/ssp.json
 ```
 
-**Expected:** `VALID` (validated against the official NIST OSCAL 1.1.2 SSP schema).
+**Expected:** `VALID` (validated against the official NIST OSCAL 1.1.2 SSP schema). If it prints a count of errors, each `ERROR at` line names the failing field. The one schema quirk met on validation, XML Schema `\p{}` patterns that Python's `re` can't read, is handled inside `validate_ssp.py`, so there is no manual fix to apply.
 
 ### 5. Prove separation of duties
 

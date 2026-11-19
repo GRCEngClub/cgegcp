@@ -18,7 +18,7 @@ This is the only lab where you click. You turn on logging by hand, break somethi
 
 ### 2. Make a bucket public, on purpose
 
-**where:** repo root. Replace `YOUR_PROJECT_ID`.
+**where:** repo root. Replace `YOUR_PROJECT_ID`. Any globally unique bucket name works, including the initials-plus-`lab2` name from the video; this guide uses the project ID so the name is unique without thinking.
 
 ```bash
 gcloud storage buckets create gs://YOUR_PROJECT_ID-lab2-test --location=us-central1 --uniform-bucket-level-access
@@ -50,7 +50,7 @@ CHK-STG-01  FAIL  YOUR_PROJECT_ID-lab2-test
       evidence: {'public_bindings': [{'role': 'roles/storage.objectViewer', 'members': ['allUsers']}]}
 ```
 
-This is the same code the Stage 3 collector runs every day.
+This is the same code the Stage 3 collector runs every day. The script prints the check ID, status, resource and evidence. The control mappings the video calls "Controls" are the `csf` and `sp800_53` fields, which the collector adds from `functions/collector/controls.json` when it stores the result in Lab 4.
 
 ### 5. Find who did it
 
