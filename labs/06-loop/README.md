@@ -20,7 +20,7 @@ terraform init -backend-config=../../labs/03-foundation/backend.hcl
 terraform apply
 ```
 
-`grc-remediator` holds one custom role, `grcBucketRemediator`, with four permissions: `storage.buckets.get`, `getIamPolicy`, `setIamPolicy` and `update`. Read the blast-radius note in `docs/CONTROLS.md`.
+`grc-remediator` holds one custom role, `grcBucketRemediator`, with four permissions: `storage.buckets.get`, `getIamPolicy`, `setIamPolicy` and `update`. That role is everything it has for acting on resources. It also holds `roles/datastore.user`, so it can read failing results from Firestore and write its own records to the `remediations` collection, and it cannot touch any resource type beyond buckets and Firestore documents. Read the blast-radius note in `docs/CONTROLS.md`.
 
 ### 2. Create the problem by hand, outside Terraform
 
@@ -49,7 +49,7 @@ gcloud scheduler jobs run grc-remediate-daily --location=us-central1
 
 ### 4. Rung 2: approval, through a pull request
 
-In `stages/06-enforcement`, set `mode = "approve"` (for example `mode = "approve"` in a `mode.auto.tfvars`), open a pull request, read the plan (`MODE: "report_only" -> "approve"`), merge, and apply. Raising the rung is a reviewed change on the record.
+In `stages/06-enforcement`, set `mode = "approve"` (for example `mode = "approve"` in a `mode.auto.tfvars`), open a pull request, read the plan (`MODE: "report_only" -> "approve"`), merge, and apply. CI only plans, so after merging, pull `main` and run `terraform apply` in `stages/06-enforcement` yourself; the video compresses this step to "merge". Raising the rung is a reviewed change on the record.
 
 Run the remediator again. It now requests approval. See what's pending:
 
@@ -106,7 +106,7 @@ CHK-STG-02: google_storage_bucket.loose must set uniform_bucket_level_access = t
 CHK-IAM-02: google_service_account_key.nope creates a service account key. Workloads use attached identities; CI uses Workload Identity Federation.
 ```
 
-Save the failed run as `evidence/03-gate-failed.txt` and close the pull request.
+Save the failed run as `evidence/03-gate-failed.txt` and close the pull request. The video pushes the bucket and the key as two commits and saves each failure; one commit with both, as above, trips the same rules, and the rubric asks for one gate failure in `evidence/`.
 
 ## Teardown
 

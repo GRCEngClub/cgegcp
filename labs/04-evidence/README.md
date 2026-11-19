@@ -36,6 +36,8 @@ gap_map = {
 Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
 ```
 
+How it measures: Terraform runs one read-only script, `discover.sh`, as an `external` data source, and the script answers four questions with `gcloud` calls running as you. The 00_01 slide's "Terraform data sources, Cloud Asset Inventory" is shorthand for that; Asset Inventory enters the pipeline in Stage 3, with the collector.
+
 States: `present` (meets the baseline, leave it) · `absent` (Stage 2 activates it) · `different` (a human decides) · `pipeline` (Stage 2 created it, keep managing).
 
 ### 2. Activation: close the gaps, only the gaps
@@ -94,7 +96,7 @@ The function builds as `grc-builder`, which holds only `roles/cloudbuild.builds.
 gcloud scheduler jobs run grc-collect-daily --location=us-central1
 ```
 
-Then **Firestore > assessments**: one document per check per resource. Each holds `status`, `evidence`, `csf`, `sp800_53`, `run_id` and `collected_at`.
+Then **Firestore > assessments**: one document per check per resource. Each holds `status`, `evidence`, `csf`, `sp800_53`, `run_id` and `collected_at`. The control mappings the video calls "Controls" are the `csf` and `sp800_53` fields.
 
 `gcloud scheduler jobs describe` can show an empty last-attempt for a minute or two after a forced run. The scheduler's logs (`resource.type="cloud_scheduler_job"`) are the truth: look for `Original HTTP response code number = 200`.
 

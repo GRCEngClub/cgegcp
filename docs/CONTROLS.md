@@ -12,6 +12,8 @@ Every check, gate rule and pipeline design choice, mapped to NIST CSF 2.0 and NI
 | `CHK-IAM-02` | No user-managed service account keys | PR.AA-01 | IA-5 | Manual; gate blocks new ones |
 | `CHK-LOG-01` | Data Access logs (read + write) on for Cloud Storage | PR.PS-04 | AU-2, AU-12 | Stage 2 activation |
 
+In a stored check result, the control mappings the video calls "Controls" are two fields: `csf` and `sp800_53`.
+
 ## Gate rules (preventive, every pull request)
 
 | Rule | File | Blocks | Maps to |
@@ -35,6 +37,6 @@ Every check, gate rule and pipeline design choice, mapped to NIST CSF 2.0 and NI
 
 ## Blast radius
 
-- **`grc-remediator`** holds custom role `grcBucketRemediator`: `storage.buckets.get`, `getIamPolicy`, `setIamPolicy`, `update`. It cannot read or delete objects, touch any other resource type, or delete a bucket. In `report_only` mode it changes nothing.
+- **`grc-remediator`** holds two grants, both in `stages/06-enforcement/main.tf`. For acting on resources, custom role `grcBucketRemediator`: `storage.buckets.get`, `storage.buckets.getIamPolicy`, `storage.buckets.setIamPolicy`, `storage.buckets.update`. For its records, `roles/datastore.user`: it reads failing results from Firestore and writes what it did to the `remediations` collection. It cannot read or delete objects, delete a bucket, or touch any resource type beyond buckets and Firestore documents. In `report_only` mode it changes nothing.
 - **`grc-collector`**: `cloudasset.viewer` + `datastore.user`. It can't change any resource.
 - **CI**: the read-only roles in `labs/03-foundation/ci-roles.txt`, plus write access to the state lock. CI never applies.
