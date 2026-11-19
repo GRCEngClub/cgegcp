@@ -50,6 +50,14 @@ if grep -rq --include='*.tf' 'google_service_account_key' stages/; then bad "a s
 grep -q 'service_account_email = local.remediator.email' stages/06-enforcement/main.tf \
   && ok "remediator runs as its own identity" || bad "remediator identity not dedicated"
 
+echo "== No stored credentials =="
+if command -v gitleaks >/dev/null 2>&1; then
+  n=$(gitleaks detect --no-git --no-banner --exit-code 0 --report-format json --report-path /dev/stdout . 2>/dev/null | grep -c '"RuleID"')
+  [ "$n" -eq 0 ] && ok "gitleaks finds no secrets" || bad "gitleaks reports $n finding(s): any finding is an auto-fail for the capstone"
+else
+  echo "  - gitleaks not installed, skipping (the grader runs it: any finding is an auto-fail)"
+fi
+
 echo "== Policy gate, both directions =="
 if command -v conftest >/dev/null 2>&1; then
   conftest test --no-color -p policy policy/tests/good-plan.json >/dev/null 2>&1 \
